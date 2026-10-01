@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI in Modern Life — Poster · Team AI StarC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#d90429; --red-deep:#a4031f; --red-soft:#ffccd5;
+  --paper:#faf7f5;ink:#1a1a1a; --dim:#5c5c5c;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#e8e4e1;
+  font-family:'Space Grotesk',sans-serif;
+  display:flex;justify-content:center;align-items:flex-start;
+  padding:40px 16px;min-height:100vh;color:var(--ink);
+}
+
+/* ============ POSTER CANVAS (A-series ratio) ============ */
+.poster{
+  width(800px,100%);
+  aspect-ratio:1/1.414;              /* A4 portrait ratio */
+  background:var(--paper);
+  box-shadow:0 40px 100px rgba(0,0,0,.3);
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+}
+
+/* subtle grid texture */
+.poster::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+ linear-gradient(rgba(217,4,41,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(217,4,41,.035) 1px,transparent 1px);
+  background-size:44px 44px;
+  pointer-events:none;
+}
+
+/* ---------- TOP STRIP ---------- */
+.strip{
+  background:var(--red);color:#fff;
+ display:flex;justify-content:space-between;align-items:center;
+  padding:16px 48px;font-size:.78rem;letter-spacing:.22em;
+  text-transform:uppercase;font-weight:500;position:relative;z-index:2;
+}
+.strip span:last-child{opacity:.85}
+
+/* ---------- HERO ---------- */
+.hero{padding:56px 48px 30px;position:relative;z-index:2}
+.kicker{
+  color:var(--red);font-size:.82remletter-spacing:.3em;
+  text-transform:uppercase;display:flex;align-items:center;gap:14px;font-weight:500;
+}
+.kicker::before{content:"";width:52px;height:2px;background:var(--red)}
+h1{
+  font-family:'Fraunces',serif;font-weight:900;
+  font-size:clamp(2.6rem,6.5vw,4.6rem);line-height:1.02;margin-top:18px;
+}
+h1 em{font-style:normal;color:var(--red);position:relative}
+h1 em::after{
+  content:"";position:absolute;left:0;bottom:6px;width:100%;height:12px;
+  background:var(--red-soft);z-index:-1;
+}
+.hero p{margin-top:20px;color:var(--dim);max-width:440px;line-height:1.7;font-size:1.02rem}
+
+/* ---------- NEURAL VISUAL ---------- */
+.neural{
+  position:absolute;top:70px;right:-40px;width:360px;height:360px;
+  opacity:.9;z-index:1;pointer-events:none;
+}
+
+/* ---------- CONTENT GRID ---------- */
+.grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:18px;padding:20px 48px;position:relative;z-index:2;flex:1;
+}
+.domain{
+  border:1.5px solid #eee0e2;background:#fff;border-radius:16px;
+  padding:24px 20px;transition:.25s;position:relative;overflow:hidden;
+}
+.domain:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 16px 36px rgba(217,4,41,.12)}
+.domain .ico{
+  width:46px;height:46px;border-radius:12px;background:var(--red);
+  display:grid;place:center;font-size:1.3rem;margin-bottom:14px;
+}
+.domain h3{font-family:'Fraunces',serif;font-size:1.05rem;margin-bottom:8px}
+.domain p{color:var(--dim);font-size:.83rem;line-height:1.6}
+
+/* wide feature card */
+.feature{
+  grid-column:span 3;
+  background:var(--red);color:#fff;border-radius:16px;
+  padding:26px 30px;display:flex;align-items:center;gap:26px;overflow:hidden;position:relative;
+}
+.feature::after{
+  content:"✦";position:absolute;right:24px;font-size:6rem;opacity:.15;
+  font-family:'Fraunces',serif;
+}
+.feature .big{font-family:'Fraunces',serif;font-size:2.rem;font-weight:900;white-space:nowrap}
+.feature .txt b{display:block;font-size:1.05rem;margin-bottom:5px}
+.feature .txt span{opacity:.85;font-size:.88rem;line-height:1.55}
+
+/* ---------- STATS BAR ---------- */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1.5px solid #eee0e2;margin:0 48px;position:relative;z-index:2;
+}
+.stat{padding:22px 8px;text-align:center;border-left:1.5px solid #eee0e2}
+.stat:first-child{border-left:none}
+.stat .n{font-family:'Fraunces',serif;font-weight:900;font-size:1.7rem;color:var(--red)}
+.stat .l{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:4px}
+
+/* ---------- FOOTER ---------- */
+.foot{
+  background:var(--ink);color:#fff;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 48px;position:relative;z-index:2;
+}
+.foot .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+.foot .brand svg{color:var(--red)}
+.foot small{opacity:.65;font-size:.78rem}
+
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr}
+  .feature{grid-column:span 1;flex-direction:column;text-align:center;gap:12px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(3){border-left:none}
+  .neural{display:none}
+}
+@media print{
+  body{background:#fff;padding:0}
+  .poster{box-shadow:none;width:100%}
+}
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <div class="strip">
+    <span>✦ Team AI StarC presents</span>
+    <span>AI Agentic Day · 29 Aug</span>
+  </div>
+
+  <!-- decorative neural network -->
+  <svg class="neural" viewBox="0 0 360 360" fill="none">
+    <g stroke="#d90429" stroke-opacity=".22" stroke-width="1">
+      <line x160" y1="80" x2="180" y2="50"/><line x1="60" y1="80" x2="180" y2="140"/>
+      <line x1="60" y1="180" x2="180" y2="140"/><line x1="60" y1="180" x2="180" y2="230"/>
+      <line x1="60" y1="280" x2="180" y2="230"/><line x1="60" y1="280" x2="180" y2="310"/>
+      <line x1="180" y1="50" x2="300" y2="120"/><line x1="180" y1="140" x2="300" y2="120"/>
+      <line x1="180" y1="140" x2="300" y2="210"/><line x1="180" y1="230" x2="300" y2="210"/>
+      <line x1="180" y1="230" x2="300" y2="290"/><line x1="180" y1="310" x2="300" y2="290"/>
+    </g>
+    <g fill="#d90429" fill-opacity=".85">
+      <circle cx="60" cy="80" r="7"/><circle cx="60" cy="180" r="7"/><circle cx="60" cy="280" r="7"/>
+      <circle cx="180" cy="50" r="9"/><circle cx="180" cy="140" r="9"/>
+      <circle cx="180" cy="230" r="9"/><circle cx="180" cy="310" r="9"/>
+      <circle cx="300" cy="" r="11" fill="#a4031f"/><circle cx="300" cy="210" r="11" fill="#a4031f"/>
+      <circle cx="300" cy="290" r="11" fill="#a4031f"/>
+    </g>
+  </svg>
+
+  <div class="hero">
+    <div class="kicker">The Invisible Revolution</div>
+    <h1>Artificial Intelligence<br>in <em>Modern Life</em></h1>
+    <p>From the moment your alarm learns your sleep cycle to the route your commute takes — intelligent systems quietly shape every hour of the modern day.</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="domain">
+      <div class="ico">🏥</div>
+      <h3>Healthcare</h3>
+      <p>AI detects cancers earlier than the human eye and accelerates drug discovery from years to months.</p>
+    </div>
+
+    <div class="domain">
+      <div class="ico">🎓</div>
+      <h3>Education</h3>
+      <p>Personal tutors adapt to every learner's pace — one teacher's attention, multiplied a million times.</p>
+    </div>
+
+    <div class="domain">
+      <div class="ico">🚗</div>
+      <h3>Mobility</h3>
+      <p>Smart traffic flows, self-driving pilots, and navigation that predicts the road before you see it.</p>
+    </div>
+
+    <div class="domain">
+      <div class="ico">💳</div>
+      <h3>Finance</h3>
+      <p>Fraud caught in milliseconds, credit made fairer, and markets analyzed at superhuman speed.</p>
+    </div>
+
+    <div class="domain">
+      <div class="ico">🌾</div>
+      <h3>Agriculture</h3>
+      <p>Drones read crop health from the sky while algorithms decide exactly where every drop of water goes.</p>
+    </div>
+
+    <div class="domain">
+      <div class="ico">🎨</div>
+      <h3>Creativity</h3>
+      <p>Generative models compose music, write code, and paint — a new renaissance, co-authored with machines.</p>
+    </div>
+
+    <div class="feature">
+      <div class="big">77%</div>
+      <div class="txt">
+        <b>of devices in use today feature some form of AI</b>
+        <span>The question is no longer <em>if</em> AI enters our lives — it's how wisely we'll shape the partnership between human intuition and machine intelligence.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n">4.2B</div><div class="l">Voice assistants</div></div>
+    <div class="stat"><div class="n">38%</div><div class="l">Jobs augmented</div></div>
+    <div class="stat"><div class="n">$1.8T</div><div class="l">Market by 2030</div></div>
+    <div class="stat"><div class="n">24/7</div><div class="l">Always learning</div></div>
+  </div>
+
+  <div class="foot">
+    <div class="brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l2.6 6.9L21 12l-6.4 4.1L12 23l-2.6-6.9L3 12l6.4-4.1z"/></svg>
+      AI StarC
+    </div>
+    <small>Designed for AI Agentic Day · 29 August ✦ The future is agentic</small>
+  </div>
+
+</div>
+
+</body>
+</html>
